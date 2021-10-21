@@ -5,8 +5,6 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastPlayer: "O",
-
       button1: "",
       button2: "",
       button3: "",
@@ -16,242 +14,363 @@ class Game extends React.Component {
       button7: "",
       button8: "",
       button9: "",
-
-      someoneWon: false,
     };
+    this.currentPlayer = "O";
+    this.isTied = false;
+    this.someoneWon = false;
+    this.winner = "";
+    this.button1 = "";
+    this.button2 = "";
+    this.button3 = "";
+    this.button4 = "";
+    this.button5 = "";
+    this.button6 = "";
+    this.button7 = "";
+    this.button8 = "";
+    this.button9 = "";
 
     this.handleClick = this.handleClick.bind(this);
     this.checkForTie = this.checkForTie.bind(this);
-
-    this.isTied = false;
-
-    this.someoneWon = false;
-
-    this.winner = "";
-
-    this.lastButton = "";
-
-    this.button1 = false;
-    this.button2 = false;
-    this.button3 = false;
-    this.button4 = false;
-    this.button5 = false;
-    this.button6 = false;
-    this.button7 = false;
-    this.button8 = false;
-    this.button9 = false;
   }
 
-  playerFlipper() {
-    if (this.state.lastPlayer === "O") {
-      this.setState({ lastPlayer: "X" });
+  // pure
+  flipXandO(player) {
+    if (player === "O") {
       return "X";
     }
-
-    if (this.state.lastPlayer === "X") {
-      this.setState({ lastPlayer: "O" });
+    if (player === "X") {
       return "O";
     }
   }
 
-  checkForWinner(lastButton) {
-    if (
-      (this.state.button1 === "X" || lastButton === "button1") &&
-      (this.state.button2 === "X" || lastButton === "button2") &&
-      (this.state.button3 === "X" || lastButton === "button3")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button4 === "X" || lastButton === "button4") &&
-      (this.state.button5 === "X" || lastButton === "button5") &&
-      (this.state.button6 === "X" || lastButton === "button6")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button7 === "X" || lastButton === "button7") &&
-      (this.state.button8 === "X" || lastButton === "button8") &&
-      (this.state.button9 === "X" || lastButton === "button9")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button1 === "X" || lastButton === "button1") &&
-      (this.state.button4 === "X" || lastButton === "button4") &&
-      (this.state.button7 === "X" || lastButton === "button7")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button2 === "X" || lastButton === "button2") &&
-      (this.state.button5 === "X" || lastButton === "button5") &&
-      (this.state.button8 === "X" || lastButton === "button8")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button3 === "X" || lastButton === "button3") &&
-      (this.state.button6 === "X" || lastButton === "button6") &&
-      (this.state.button9 === "X" || lastButton === "button9")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button1 === "X" || lastButton === "button1") &&
-      (this.state.button5 === "X" || lastButton === "button5") &&
-      (this.state.button9 === "X" || lastButton === "button9")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button3 === "X" || lastButton === "button3") &&
-      (this.state.button5 === "X" || lastButton === "button5") &&
-      (this.state.button7 === "X" || lastButton === "button7")
-    ) {
-      this.winner = "Player 1";
-    } else if (
-      (this.state.button1 === "O" || lastButton === "button1") &&
-      (this.state.button2 === "O" || lastButton === "button2") &&
-      (this.state.button3 === "O" || lastButton === "button3")
-    ) {
-      this.winner = "Player 2";
-    } else if (
-      (this.state.button4 === "O" || lastButton === "button4") &&
-      (this.state.button5 === "O" || lastButton === "button5") &&
-      (this.state.button6 === "O" || lastButton === "button6")
-    ) {
-      this.winner = "Player 2";
-    } else if (
-      (this.state.button7 === "O" || lastButton === "button7") &&
-      (this.state.button8 === "O" || lastButton === "button8") &&
-      (this.state.button9 === "O" || lastButton === "button9")
-    ) {
-      this.winner = "Player 2";
-    } else if (
-      (this.state.button1 === "O" || lastButton === "button1") &&
-      (this.state.button4 === "O" || lastButton === "button4") &&
-      (this.state.button7 === "O" || lastButton === "button7")
-    ) {
-      this.winner = "Player 2";
-    } else if (
-      (this.state.button2 === "O" || lastButton === "button2") &&
-      (this.state.button5 === "O" || lastButton === "button5") &&
-      (this.state.button8 === "O" || lastButton === "button8")
-    ) {
-      this.winner = "Player 2";
-    } else if (
-      (this.state.button3 === "O" || lastButton === "button3") &&
-      (this.state.button6 === "O" || lastButton === "button6") &&
-      (this.state.button9 === "O" || lastButton === "button9")
-    ) {
-      this.winner = "Player 2";
-    } else if (
-      (this.state.button1 === "O" || lastButton === "button1") &&
-      (this.state.button5 === "O" || lastButton === "button5") &&
-      (this.state.button9 === "O" || lastButton === "button9")
-    ) {
-      this.winner = "Player 2";
-    } else if (
-      (this.state.button3 === "O" || lastButton === "button3") &&
-      (this.state.button5 === "O" || lastButton === "button5") &&
-      (this.state.button7 === "O" || lastButton === "button7")
-    ) {
-      this.winner = "Player 2";
+  // pure
+  checkForWinner(
+    button1,
+    button2,
+    button3,
+    button4,
+    button5,
+    button6,
+    button7,
+    button8,
+    button9
+  ) {
+    let winner = "";
+    if (button1 === "X" && button2 === "X" && button3 === "X") {
+      winner = "Player 1";
+    } else if (button4 === "X" && button5 === "X" && button6 === "X") {
+      winner = "Player 1";
+    } else if (button7 === "X" && button8 === "X" && button9 === "X") {
+      winner = "Player 1";
+    } else if (button1 === "X" && button4 === "X" && button7 === "X") {
+      winner = "Player 1";
+    } else if (button2 === "X" && button5 === "X" && button8 === "X") {
+      winner = "Player 1";
+    } else if (button3 === "X" && button6 === "X" && button9 === "X") {
+      winner = "Player 1";
+    } else if (button1 === "X" && button5 === "X" && button9 === "X") {
+      winner = "Player 1";
+    } else if (button3 === "X" && button5 === "X" && button7 === "X") {
+      winner = "Player 1";
+    } else if (button1 === "O" && button2 === "O" && button3 === "O") {
+      winner = "Player 2";
+    } else if (button4 === "O" && button5 === "O" && button6 === "O") {
+      winner = "Player 2";
+    } else if (button7 === "O" && button8 === "O" && button9 === "O") {
+      winner = "Player 2";
+    } else if (button1 === "O" && button4 === "O" && button7 === "O") {
+      winner = "Player 2";
+    } else if (button2 === "O" && button5 === "O" && button8 === "O") {
+      winner = "Player 2";
+    } else if (button3 === "O" && button6 === "O" && button9 === "O") {
+      winner = "Player 2";
+    } else if (button1 === "O" && button5 === "O" && button9 === "O") {
+      winner = "Player 2";
+    } else if (button3 === "O" && button5 === "O" && button7 === "O") {
+      winner = "Player 2";
     }
+    console.log("1: " + button1);
+    console.log("2: " + button2);
+    console.log("3: " + button3);
+    console.log(winner);
 
-    if (this.winner !== "") {
-      this.setState({ someoneWon: true });
-    }
+    return winner;
   }
 
-  checkForTie(lastButton) {
-    if (this.state.button1 !== "" || lastButton === "button1") {
-      this.button1 = true;
-    }
-    if (this.state.button2 !== "" || lastButton === "button2") {
-      this.button2 = true;
-    }
-    if (this.state.button3 !== "" || lastButton === "button3") {
-      this.button3 = true;
-    }
-    if (this.state.button4 !== "" || lastButton === "button4") {
-      this.button4 = true;
-    }
-    if (this.state.button5 !== "" || lastButton === "button5") {
-      this.button5 = true;
-    }
-    if (this.state.button6 !== "" || lastButton === "button6") {
-      this.button6 = true;
-    }
-    if (this.state.button7 !== "" || lastButton === "button7") {
-      this.button7 = true;
-    }
-    if (this.state.button8 !== "" || lastButton === "button8") {
-      this.button8 = true;
-    }
-    if (this.state.button9 !== "" || lastButton === "button9") {
-      this.button9 = true;
-    }
-
+  // pure
+  checkForTie(
+    button1,
+    button2,
+    button3,
+    button4,
+    button5,
+    button6,
+    button7,
+    button8,
+    button9
+  ) {
     if (
-      this.button1 === true &&
-      this.button2 === true &&
-      this.button3 === true &&
-      this.button4 === true &&
-      this.button5 === true &&
-      this.button6 === true &&
-      this.button7 === true &&
-      this.button8 === true &&
-      this.button9 === true
+      button1 !== "" &&
+      button2 !== "" &&
+      button3 !== "" &&
+      button4 !== "" &&
+      button5 !== "" &&
+      button6 !== "" &&
+      button7 !== "" &&
+      button8 !== "" &&
+      button9 !== ""
     ) {
-      this.isTied = true;
+      return true;
+    } else {
+      return false;
     }
   }
 
   handleClick(e) {
     let eventID = e.target.id;
     let eventText = e.target.innerHTML;
-
     if (eventText !== "X" && eventText !== "O") {
       if (eventID === "button1") {
-        this.setState({ button1: this.playerFlipper() });
-        this.lastButton = "button1";
-      }
-      if (eventID === "button2") {
-        this.setState({ button2: this.playerFlipper() });
-        this.lastButton = "button2";
-      }
-      if (eventID === "button3") {
-        this.setState({ button3: this.playerFlipper() });
-        this.lastButton = "button3";
-      }
-      if (eventID === "button4") {
-        this.setState({ button4: this.playerFlipper() });
-        this.lastButton = "button4";
-      }
-      if (eventID === "button5") {
-        this.setState({ button5: this.playerFlipper() });
-        this.lastButton = "button5";
-      }
-      if (eventID === "button6") {
-        this.setState({ button6: this.playerFlipper() });
-        this.lastButton = "button6";
-      }
-      if (eventID === "button7") {
-        this.setState({ button7: this.playerFlipper() });
-        this.lastButton = "button7";
-      }
-      if (eventID === "button8") {
-        this.setState({ button8: this.playerFlipper() });
-        this.lastButton = "button8";
-      }
-      if (eventID === "button9") {
-        this.setState({ button9: this.playerFlipper() });
-        this.lastButton = "button9";
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button1 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button1: this.currentPlayer });
+      } else if (eventID === "button2") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button2 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button2: this.currentPlayer });
+      } else if (eventID === "button3") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button3 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button3: this.currentPlayer });
+      } else if (eventID === "button4") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button4 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button4: this.currentPlayer });
+      } else if (eventID === "button5") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button5 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button5: this.currentPlayer });
+      } else if (eventID === "button6") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button6 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button6: this.currentPlayer });
+      } else if (eventID === "button7") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button7 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button7: this.currentPlayer });
+      } else if (eventID === "button8") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button8 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button8: this.currentPlayer });
+      } else if (eventID === "button9") {
+        this.currentPlayer = this.flipXandO(this.currentPlayer);
+        this.button9 = this.currentPlayer;
+        this.winner = this.checkForWinner(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.isTied = this.checkForTie(
+          this.button1,
+          this.button2,
+          this.button3,
+          this.button4,
+          this.button5,
+          this.button6,
+          this.button7,
+          this.button8,
+          this.button9
+        );
+        this.setState({ button9: this.currentPlayer });
       }
     }
-    this.checkForWinner(this.lastButton);
-    this.checkForTie(this.lastButton);
-    this.forceUpdate();
   }
 
   render() {
     let tie = this.isTied ? "You tied!" : "";
-    let win = this.state.someoneWon ? this.winner + " wins!" : "";
+    let win = this.winner !== "" ? this.winner + " wins!" : "";
     return (
       <>
         <table>
