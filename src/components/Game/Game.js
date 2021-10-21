@@ -1,4 +1,5 @@
 import React from "react";
+import Table from "../Table/Table.js";
 import "./Game.css";
 
 class Game extends React.Component {
@@ -373,62 +374,28 @@ class Game extends React.Component {
     let win = this.winner !== "" ? this.winner + " wins!" : "";
     return (
       <>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <button onClick={this.handleClick} id="button1">
-                  {this.state.button1}
-                </button>
-              </td>
-              <td>
-                <button onClick={this.handleClick} id="button2">
-                  {this.state.button2}
-                </button>
-              </td>
-              <td>
-                <button onClick={this.handleClick} id="button3">
-                  {this.state.button3}
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button onClick={this.handleClick} id="button4">
-                  {this.state.button4}
-                </button>
-              </td>
-              <td>
-                <button onClick={this.handleClick} id="button5">
-                  {this.state.button5}
-                </button>
-              </td>
-              <td>
-                <button onClick={this.handleClick} id="button6">
-                  {this.state.button6}
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button onClick={this.handleClick} id="button7">
-                  {this.state.button7}
-                </button>
-              </td>
-              <td>
-                <button onClick={this.handleClick} id="button8">
-                  {this.state.button8}
-                </button>
-              </td>
-              <td>
-                <button onClick={this.handleClick} id="button9">
-                  {this.state.button9}
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div>
+        <Table
+          clickHandler={this.handleClick}
+          button1id="button1"
+          button1Text={this.state.button1}
+          button2id="button2"
+          button2Text={this.state.button2}
+          button3id="button3"
+          button3Text={this.state.button3}
+          button4id="button4"
+          button4Text={this.state.button4}
+          button5id="button5"
+          button5Text={this.state.button5}
+          button6id="button6"
+          button6Text={this.state.button6}
+          button7id="button7"
+          button7Text={this.state.button7}
+          button8id="button8"
+          button8Text={this.state.button8}
+          button9id="button9"
+          button9Text={this.state.button9}
+        ></Table>
+        <div className="result">
           {tie}
           {win}
         </div>
